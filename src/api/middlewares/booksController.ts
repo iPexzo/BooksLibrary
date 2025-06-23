@@ -29,10 +29,14 @@ export const getAllBook = async (
       filter.deleted = { $ne: true };
     }
 
-    const books = await Book.find(filter)
-      .populate("authors")
-      .populate("categories");
-
+    const books = await Book.find(filter).populate({
+      path: "authors",
+      select: "name books",
+      populate: {
+        path: "books",
+        select: "title",
+      },
+    });
     res.status(200).json(books);
   } catch (error) {
     next(error);

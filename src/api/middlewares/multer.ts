@@ -29,7 +29,7 @@ const fileTypeFilter = (
 ) => {
   const allowedTypes = /jpeg|jpg|png/;
   const extValid = allowedTypes.test(
-    path.extname(file.originalname).toLowerCase().replace(".", "")
+    path.extname(file.originalname).toLowerCase()
   );
   const mimeValid = allowedTypes.test(file.mimetype);
 
@@ -40,6 +40,10 @@ const fileTypeFilter = (
   }
 };
 
-const upload = multer({ storage: storage, fileFilter: fileTypeFilter });
+const upload = multer({
+  storage: storage,
+  fileFilter: fileTypeFilter,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+});
 
 export default upload;

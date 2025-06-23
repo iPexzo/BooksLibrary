@@ -9,7 +9,7 @@ export const getAllCategories = async (
   next: NextFunction
 ) => {
   try {
-    const category = await Category.find().populate("books");
+    const category = await Category.find().populate("books", "title");
     res.status(200).json(category);
   } catch (error) {
     next(error);
