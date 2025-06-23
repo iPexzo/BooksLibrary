@@ -102,7 +102,7 @@ export const updateBook = async (
     const { id } = req.params;
     let imagePath;
     if (req.file) {
-      imagePath = req.file.path;
+      imagePath = `/uploads/${req.file.filename}`;
     }
     const foundBook = await Book.findById(id);
     if (!foundBook) {
